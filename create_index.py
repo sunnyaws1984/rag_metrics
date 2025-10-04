@@ -19,6 +19,7 @@ def main():
     # 2. Split text into chunks
     splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=100)
     documents = splitter.split_documents(pages)
+    #print("Documents",documents)
 
     # 3. Add unique IDs to each chunk
     documents_with_ids = []
@@ -26,6 +27,7 @@ def main():
     for i, doc in enumerate(documents):
         doc_id = f"doc{i+1}"
         new_doc = Document(page_content=doc.page_content, metadata={"id": doc_id})
+        #print ("new_doc",new_doc)
         documents_with_ids.append(new_doc)
 
         docs_json_data.append({
@@ -47,8 +49,8 @@ def main():
     # 6. Save FAISS index
     faiss_index.save_local(FAISS_INDEX_PATH)
 
-    print(f"✅ Created FAISS index at {FAISS_INDEX_PATH}")
-    print(f"✅ Created docs.json at {DOCS_JSON_PATH} with {len(docs_json_data)} chunks")
+    print(f"Created FAISS index at {FAISS_INDEX_PATH}")
+    print(f"Created docs.json at {DOCS_JSON_PATH} with {len(docs_json_data)} chunks")
 
 if __name__ == "__main__":
     main()
