@@ -23,7 +23,7 @@ def main():
     for q in queries:
         query_id = q["id"]
         query_text = q["text"]
-        docs = retriever.invoke(query_text)  # .invoke is the new way
+        docs = retriever.invoke(query_text)
         run[query_id] = {doc.metadata["id"]: 1.0 for doc in docs}
 
     run = Run(run)
@@ -31,7 +31,7 @@ def main():
     # 4. Load qrels (ground truth relevance)
     qrels = Qrels.from_file(QRELS_JSON_PATH)
 
-    # 5. Evaluate with common IR metrics
+    # 5. Evaluate with common IR metrics , Compares the retrieved documents (run) against ground truth (qrels).
     results = evaluate(qrels, run, metrics=["map@5", "ndcg@5", "recall@5", "precision@5"])
 
     print("Evaluation Results:")
