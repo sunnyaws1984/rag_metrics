@@ -1,7 +1,15 @@
 # rag_metrics
 Observability for RAG
 Metrics in your RAG evaluation (like MAP, nDCG, Recall, Precision) are computed based on comparing the retriever’s output (run) against the ground truth (qrels)
+It measures retrieval quality (not LLM quality).
 
+ranx: A toolkit for evaluating Information Retrieval (IR) systems — computes metrics like MAP, nDCG, Recall, Precision.
+
+These are the input files:
+faiss_index/ → previously saved FAISS index (your document embeddings).
+queries.json → list of test queries.
+qrels.json → ground truth relevance data (which docs are actually relevant to each query).
+eg:
 {
   "q1": {"doc88": 1, "doc87": 0, "doc3": 0},
   "q2": {"doc77": 1, "doc78": 0, "doc3": 0}
